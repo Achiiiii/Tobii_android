@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/NuwaUnity/Scene/Demo_tts.unity
     guid: 290d92bb8e3fdf14d97f9e0bda5dcc5d
+  - enabled: 0
+    path: Assets/Tobii/Scenes/TobiiSample.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

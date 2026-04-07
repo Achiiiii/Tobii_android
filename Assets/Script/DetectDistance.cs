@@ -15,6 +15,7 @@ public class DetectDistance : MonoBehaviour
     public AudioClip farerAudio;
     public GameObject pointer;
     public GazeCalibrationManager gazeCalibrationManager;
+    public bool isMobile = true;
 
     private Color _colorMoverGood;
     private Color _colorMoverBad;
@@ -27,8 +28,10 @@ public class DetectDistance : MonoBehaviour
     private float _time = 0;
     private float _validateTime;
     private bool _locker = true;
+
     private float _min = 0.05f;
     private float _max = 0.95f;
+
 
     void Start()
     {
@@ -61,7 +64,7 @@ public class DetectDistance : MonoBehaviour
                     if (moverScale > _max)
                     {
                         _time = 0;
-                        PlayTTS("頭部請在遠離一點");
+                        PlayTTS("頭部請再遠離一點");
                     }
                 }
             }
@@ -96,8 +99,8 @@ public class DetectDistance : MonoBehaviour
     }
     private float PositionMover(float z1, float z2)
     {
-        Debug.Log(z1 - z2);
-        var scale = 1.5f - Mathf.Abs(z1 - z2);
+        // Debug.Log(z1 - z2);
+        var scale = isMobile ? 1.0f - Mathf.Abs(z1 - z2) : 1.5f - Mathf.Abs(z1 - z2);
 
         // Set the scale.
         _mover.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.5f, 1f, scale);

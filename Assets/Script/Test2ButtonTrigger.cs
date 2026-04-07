@@ -13,12 +13,16 @@ public class Test2ButtonTrigger : MonoBehaviour
     private bool _isEnter;
     private bool _isScaleReset = true;
 
+    // 視點圖片所在的 Layer（在 Inspector 中設定）
+    public LayerMask gazeCursorLayer;
+    private BoxCollider2D boxCollider;
+
     void Start()
     {
         rect = gameObject.GetComponent<RectTransform>();
         btn = gameObject.GetComponent<Button>();
         transform = gameObject.GetComponent<Transform>();
-        BoxCollider2D boxCollider = gameObject.AddComponent<BoxCollider2D>();
+        boxCollider = gameObject.AddComponent<BoxCollider2D>();
         float pivotX = rect.pivot.x;
         float pivotY = rect.pivot.y;
         float offsetX = 0;
@@ -51,6 +55,28 @@ public class Test2ButtonTrigger : MonoBehaviour
         boxCollider.isTrigger = true;
         boxCollider.size = new Vector2(rect.sizeDelta.x, rect.sizeDelta.y);
         btn.onClick.AddListener(ClickAudio);
+    }
+
+    void Update()
+    {
+        if (boxCollider == null) return;
+
+        // 計算 Collider 的世界位置（考慮 offset）
+        Vector2 worldCenter = (Vector2)transform.position + boxCollider.offset;
+        Collider2D hit = Physics2D.OverlapBox(worldCenter, boxCollider.size, 0f, gazeCursorLayer);
+
+        bool isOverlapping = hit != null;
+
+        if (isOverlapping && !_isEnter)
+        {
+            // 視點圖片進入（包含生成時已在範圍內的情況）
+            OnTriggerEnter2D(hit);
+        }
+        else if (!isOverlapping && _isEnter)
+        {
+            // 視點圖片離開
+            OnTriggerExit2D(null);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

@@ -12,7 +12,7 @@ public class Test3 : MonoBehaviour
     private bool _isRecording;
     private List<Test3Data> recordedData = new List<Test3Data>();
     private int times = 0;
-    private Vector3[] path = { new(912.5f, 0, 0), new(-912.5f, 0, 0), new(-660f, 0, 0) };
+    private Vector3[] path = { new(872.5f, 0, 0), new(-872.5f, 0, 0), new(-450f, 0, 0) };
     private long _startTime;
 
     [System.Serializable]
@@ -43,7 +43,7 @@ public class Test3 : MonoBehaviour
     public void Test3Start()
     {
         _startTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        point.localPosition = new Vector3(-660f, 0, 0);
+        point.localPosition = new Vector3(-450f, 0, 0);
         _isRecording = true;
         point.DOLocalPath(path, 10f).SetEase(Ease.Linear).OnComplete(() =>
         {
@@ -66,7 +66,7 @@ public class Test3 : MonoBehaviour
         recordedData.Clear();
         times = 0;
         point.DOKill();
-        point.DOLocalMove(new Vector3(-912.5f, 0, 0), 0f);
+        point.DOLocalMove(new Vector3(-872.5f, 0, 0), 0f);
         _isRecording = false;
         StopRecord("", false);
     }

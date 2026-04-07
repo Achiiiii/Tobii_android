@@ -146,7 +146,7 @@ public class TobiiController : MonoBehaviour
         advancedTest.SetActive(false);
         startBtn.SetActive(true);
         ContentControl(
-            "請依照數字順序（1 到 25），將視線依序注視螢幕上隨機分布的圓圈。每注視正確的數字，系統會自動連線。\n\n。準備好後，請凝視開始3秒。",
+            "請依照數字順序（1 到 25），將視線依序注視螢幕上隨機分布的圓圈。每注視正確的數字，系統會自動連線。\n\n準備好後，請凝視開始3秒。",
             "測驗時間：約 50 秒至 20 分鐘"
         );
         curPage = Page.black;
@@ -422,6 +422,10 @@ public class TobiiController : MonoBehaviour
     {
         // audioSource.Stop();
         Nuwa.stopTTS();
+        foreach (GameObject star in stars)
+        {
+            star.SetActive(false);
+        }
         switch (curPage)
         {
             case Page.home:
@@ -524,5 +528,9 @@ public class TobiiController : MonoBehaviour
                 curPage = Page.advanced;
                 break;
         }
+    }
+    public void ApplicationQuit()
+    {
+        Application.Quit();
     }
 }

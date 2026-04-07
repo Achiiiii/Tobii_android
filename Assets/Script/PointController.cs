@@ -14,7 +14,7 @@ public class PointController : MonoBehaviour
         curIndex = index;
         uILineRenderer.points.Add(position);
         uILineRenderer.SetVerticesDirty();
-        if (index == 25)
+        if (index == pointGOs.Length)
         {
             StartCoroutine(DelayReset());
         }
